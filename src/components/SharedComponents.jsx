@@ -58,7 +58,7 @@ export const AccordionItem = ({ question, answer, isOpen, onClick }) => (
             onClick={onClick}
             aria-expanded={isOpen}
         >
-            <span className="text-lg md:text-xl pr-4">{question}</span>
+            <span className="text-xl md:text-2xl pr-4">{question}</span>
             {isOpen
                 ? <Minus className="w-6 h-6 text-indigo-600 flex-shrink-0" />
                 : <Plus className="w-6 h-6 text-indigo-600 flex-shrink-0" />
@@ -68,7 +68,7 @@ export const AccordionItem = ({ question, answer, isOpen, onClick }) => (
             className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100 px-6 pb-6' : 'max-h-0 opacity-0'}`}
             aria-hidden={!isOpen}
         >
-            <p className="text-gray-600 text-base leading-relaxed border-t border-gray-200 pt-4 mt-[-4px]">{answer}</p>
+            <p className="text-gray-600 text-base md:text-lg leading-relaxed border-t border-gray-200 pt-4 mt-[-4px]">{answer}</p>
         </div>
     </div>
 );

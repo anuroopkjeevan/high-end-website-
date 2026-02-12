@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Global Image Responsive Styles */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

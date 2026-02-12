@@ -4,7 +4,7 @@ export const contactDetails = {
         address: 'Office 310, Sarah Building, Al Garhoud, Dubai, UAE',
         addressDetail: 'Posh Businessmen Services LLC, Office 310, Sarah Building, Al Garhoud, Dubai, UAE',
         email: 'admin@poshconsultants.com',
-        phone: ' +971 565747444',
+        phone: ' +971 56 57 47 444',
         telPrefix: 'Tel'
     },
     india: {
