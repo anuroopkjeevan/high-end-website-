@@ -17,7 +17,7 @@ import {
   Mail,
   Instagram,
   Linkedin,
-  Twitter,
+  Facebook, // Changed from Twitter to Facebook
   ChevronRight,
   Sparkles,
   Rocket,
@@ -723,70 +723,62 @@ const Services = ({ handleNavClick, Logo }) => {
       </section>
 
       {/* --- Premium Footer --- */}
-      <footer className="bg-[#1e1e24] text-white pt-24 pb-12 rounded-t-[4rem] border-t border-white/[0.02] relative">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#7c7adb]/5 via-transparent to-transparent pointer-events-none" />
-        
-        <div className="container mx-auto px-6 relative z-10">
+      <footer className="bg-[#1e1e24] text-white pt-24 pb-12 rounded-t-[4rem] border-t border-white/5">
+        <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-20 mb-20">
             <div>
-              <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter mb-8 leading-[0.9] uppercase">
-                LET'S BUILD<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7c7adb] to-[#a3a1f7]">
-                  TOGETHER.
-                </span>
+              <h2 className="text-6xl font-black tracking-tighter mb-8 leading-[0.9] uppercase">
+                LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
               </h2>
               <button 
                 onClick={() => handleNavClick('contactpage')}
-                className="group bg-white text-black px-10 py-5 rounded-[1.5rem] font-bold text-lg hover:bg-gradient-to-r hover:from-[#7c7adb] hover:to-[#a3a1f7] hover:text-white transition-all duration-500 flex items-center gap-3 shadow-2xl hover:scale-105"
+                className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
               >
-                Get In Touch 
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                Get In Touch <ArrowRight />
               </button>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <p className="font-black uppercase text-xs tracking-[0.2em] text-[#7c7adb]">
-                  Contact
-                </p>
-                <div className="space-y-3">
-                  <p className="font-medium text-lg text-white/80 hover:text-white transition-colors cursor-pointer">
-                    adverrahub@gmail.com
-                  </p>
-                  <p className="font-medium text-lg text-white/80 hover:text-white transition-colors cursor-pointer">
-                    +91 7306771387
-                  </p>
-                </div>
+              <div className="space-y-4">
+                <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Contact</p>
+                <p className="font-bold text-lg">adverrahub@gmail.com</p>
+                <p className="font-bold text-lg">+91 7306771387</p>
               </div>
-              
-              <div className="space-y-6">
-                <p className="font-black uppercase text-xs tracking-[0.2em] text-[#7c7adb]">
-                  Studio
-                </p>
-                <p className="font-medium text-lg text-gray-400">
-                  Wayanad & Calicut
-                  <br />
-                  India
-                </p>
+              <div className="space-y-4">
+                <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Office</p>
+                <p className="font-bold text-lg text-gray-400">Wayanad & Calicut, India</p>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-white/[0.02] pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-white/20">
-              © 2024 ADVERRA HUB. ENGINEERED FOR GROWTH.
-            </p>
-            <div className="flex gap-8">
-              {[Instagram, Linkedin, Twitter].map((Icon, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -2 }}
-                  className="group cursor-pointer"
+          <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
+             <p className="text-[10px] font-bold tracking-[0.2em]">© 2025 ADVERRA HUB. DESIGNED FOR GROWTH.</p>
+             <div className="flex gap-6">
+                <a 
+                  href="https://www.instagram.com/adverra_hub/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7c7adb] transition-colors cursor-pointer"
                 >
-                  <Icon className="w-4 h-4 text-white/30 group-hover:text-[#7c7adb] transition-all duration-300" />
-                </motion.div>
-              ))}
-            </div>
+                  <Instagram size={18} />
+                </a>
+                <a 
+                  href="https://www.linkedin.com/company/adverrahub" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a 
+                  href="https://www.facebook.com/profile.php?id=61578278429066" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                >
+                  <Facebook size={18} />
+                </a>
+             </div>
           </div>
         </div>
       </footer>

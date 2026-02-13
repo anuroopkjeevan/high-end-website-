@@ -13,7 +13,7 @@ import {
   MapPin, 
   Instagram, 
   Linkedin, 
-  Twitter,
+  Facebook, // Changed from Twitter to Facebook
   Users,
   Target,
   ChevronDown,
@@ -327,9 +327,30 @@ const Home = ({ handleNavClick, Logo }) => {
           <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
              <p className="text-[10px] font-bold tracking-[0.2em]">© 2025 ADVERRA HUB. DESIGNED FOR GROWTH.</p>
              <div className="flex gap-6">
-                <Instagram size={18} className="cursor-pointer hover:text-[#7c7adb]" />
-                <Linkedin size={18} className="cursor-pointer hover:text-[#7c7adb]" />
-                <Twitter size={18} className="cursor-pointer hover:text-[#7c7adb]" />
+                <a 
+                  href="https://www.instagram.com/adverra_hub/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                >
+                  <Instagram size={18} />
+                </a>
+                <a 
+                  href="https://www.linkedin.com/company/adverrahub" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a 
+                  href="https://www.facebook.com/profile.php?id=61578278429066" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                >
+                  <Facebook size={18} />
+                </a>
              </div>
           </div>
         </div>

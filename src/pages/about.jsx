@@ -12,7 +12,7 @@ import {
   Globe,
   Instagram,
   Linkedin,
-  Twitter,
+  Facebook, // Changed from Twitter to Facebook
   Mail,
   MapPin,
   Phone,
@@ -150,13 +150,13 @@ const About = ({ handleNavClick, Logo }) => {
             
             <div className="space-y-6 text-gray-400 font-light text-lg leading-relaxed">
               <p>
-                In 2025, we noticed something broken in the digital marketing world. 
+                In 2019, we noticed something broken in the digital marketing world. 
                 Agencies were selling smoke and mirrors—vanity metrics, keyword stuffing, 
                 and hollow promises. We founded Adverra Hub to do the opposite.
               </p>
               <p>
                 We believe in data over ego. Substance over flash. Long-term dominance 
-                over short-term hacks. Today, we're a lean team of 15 specialists serving 
+                over short-term hacks. Today, we're a lean team of 15+ specialists serving 
                 25+ brands across retail, tech, and luxury sectors.
               </p>
               <div className="relative">
@@ -198,7 +198,7 @@ const About = ({ handleNavClick, Logo }) => {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 uppercase font-bold tracking-widest">Established</p>
-                  <p className="font-black text-3xl text-white">2025</p>
+                  <p className="font-black text-3xl text-white">2019</p>
                 </div>
               </div>
             </motion.div>
@@ -377,18 +377,33 @@ const About = ({ handleNavClick, Logo }) => {
 
           <div className="border-t border-white/[0.02] pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-white/20">
-              © 2024 ADVERRA HUB. LUXURY DIGITAL PARTNER.
+              © 2025 ADVERRA HUB. DESIGNED FOR GROWTH.
             </p>
             <div className="flex gap-8">
-              {[Instagram, Linkedin, Twitter].map((Icon, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -2 }}
-                  className="group cursor-pointer"
-                >
-                  <Icon className="w-4 h-4 text-white/30 group-hover:text-[#7c7adb] transition-all duration-300" />
-                </motion.div>
-              ))}
+              <a 
+                href="https://www.instagram.com/adverra_hub/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group cursor-pointer hover:text-[#7c7adb] transition-colors"
+              >
+                <Instagram className="w-4 h-4 text-white/30 group-hover:text-[#7c7adb] transition-all duration-300" />
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/adverrahub" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group cursor-pointer hover:text-[#7c7adb] transition-colors"
+              >
+                <Linkedin className="w-4 h-4 text-white/30 group-hover:text-[#7c7adb] transition-all duration-300" />
+              </a>
+              <a 
+                href="https://www.facebook.com/profile.php?id=61578278429066" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group cursor-pointer hover:text-[#7c7adb] transition-colors"
+              >
+                <Facebook className="w-4 h-4 text-white/30 group-hover:text-[#7c7adb] transition-all duration-300" />
+              </a>
             </div>
           </div>
         </div>
