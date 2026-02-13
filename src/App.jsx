@@ -23,7 +23,7 @@ function AnalyticsTracker() {
 
   useEffect(() => {
     if (window.gtag) {
-      window.gtag("config", "G-XXXXXXXXXX", {
+      window.gtag("config", "G-LMGFDPMFMY", {
         page_path: location.pathname + location.search,
       });
     }
