@@ -739,10 +739,10 @@ const Services = ({ handleNavClick, Logo }) => {
             </div>
 
             <div className="grid sm:grid-cols-2 gap-12">
-              <div className="space-y-4">
+               <div className="space-y-4">
                 <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Contact</p>
-                <p className="font-bold text-lg">adverrahub@gmail.com</p>
-                <p className="font-bold text-lg">+91 7306771387</p>
+                <p className="font-bold text-lg">info@averrahub.com</p>
+                <p className="font-bold text-lg">+91 7560807374</p>
               </div>
               <div className="space-y-4">
                 <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Office</p>

@@ -354,10 +354,10 @@ const About = ({ handleNavClick, Logo }) => {
                 </p>
                 <div className="space-y-3">
                   <p className="font-medium text-lg text-white/80 hover:text-white transition-colors cursor-pointer">
-                    adverrahub@gmail.com
+                    info@averrahub.com
                   </p>
                   <p className="font-medium text-lg text-white/80 hover:text-white transition-colors cursor-pointer">
-                    +91 7306771387
+                    +91 7560807374
                   </p>
                 </div>
               </div>
