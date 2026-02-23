@@ -207,39 +207,65 @@ const Portfolio = ({ handleNavClick }) => {
         </motion.div>
       </section>
 
-      <footer className="bg-[#1e1e24] text-white pt-20 pb-10 rounded-t-[4rem] border-t border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 opacity-60">
-            <p className="text-[10px] font-bold tracking-[0.2em]">© 2025 ADVERRA HUB. DESIGNED FOR GROWTH.</p>
-            <div className="flex gap-6">
-              <a
-                href="https://www.instagram.com/adverra_hub/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#7c7adb] transition-colors"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/adverrahub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#7c7adb] transition-colors"
-              >
-                <Linkedin size={18} />
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61578278429066"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#7c7adb] transition-colors"
-              >
-                <Facebook size={18} />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+       <footer className="bg-[#1e1e24] text-white pt-24 pb-12 rounded-t-[4rem] border-t border-white/5">
+             <div className="container mx-auto px-6">
+               <div className="grid lg:grid-cols-2 gap-20 mb-20">
+                 <div>
+                   <h2 className="text-6xl font-black tracking-tighter mb-8 leading-[0.9] uppercase">
+                     LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
+                   </h2>
+                   <button 
+                     onClick={() => handleNavClick('contactpage')}
+                     className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
+                   >
+                     Get In Touch <ArrowRight />
+                   </button>
+                 </div>
+     
+                 <div className="grid sm:grid-cols-2 gap-12">
+                   <div className="space-y-4">
+                     <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Contact</p>
+                     <p className="font-bold text-lg">info@adverrahub.com</p>
+                     <p className="font-bold text-lg">+91 7560807374</p>
+                   </div>
+                   <div className="space-y-4">
+                     <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Office</p>
+                     <p className="font-bold text-lg text-gray-400">Wayanad & Calicut, India</p>
+                   </div>
+                 </div>
+               </div>
+     
+               <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
+                  <p className="text-[10px] font-bold tracking-[0.2em]">© 2025 ADVERRA HUB. DESIGNED FOR GROWTH.</p>
+                  <div className="flex gap-6">
+                     <a 
+                       href="https://www.instagram.com/adverra_hub/" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                     >
+                       <Instagram size={18} />
+                     </a>
+                     <a 
+                       href="https://www.linkedin.com/company/adverrahub" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                     >
+                       <Linkedin size={18} />
+                     </a>
+                     <a 
+                       href="https://www.facebook.com/profile.php?id=61578278429066" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="hover:text-[#7c7adb] transition-colors cursor-pointer"
+                     >
+                       <Facebook size={18} />
+                     </a>
+                  </div>
+               </div>
+             </div>
+           </footer>
     </div>
   );
 };

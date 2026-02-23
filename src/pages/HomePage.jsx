@@ -648,7 +648,6 @@ const services = [
   { icon: Globe, title: "Digital Marketing", desc: "Comprehensive growth strategies that scale.", details: ["Social Media", "Content Marketing", "Brand Strategy"] },
   { icon: Layout, title: "Development", desc: "High-performance web and software solutions.", details: ["Web Development", "E-commerce", "Custom Solutions"] },
   { icon: Smartphone, title: "App Development", desc: "Native and cross-platform mobile excellence.", details: ["iOS/Android", "Cross-Platform", "App Store Optimization"] },
-  { icon: BarChart3, title: "Analytics", desc: "Data-driven insights for smarter decisions.", details: ["Dashboards", "Event Tracking", "BI Reports"] }
 ];
 
 const projects = [
