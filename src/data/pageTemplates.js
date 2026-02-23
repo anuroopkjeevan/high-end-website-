@@ -6,6 +6,7 @@ import Home from "../pages/HomePage";
 import About from "../pages/about";
 import Services from "../pages/Services";
 import Blog from "../pages/blog";
+import Portfolio from "../pages/Portfolio";
 
 // Define the structure of each page based on your actual components
 const pageDefinitions = [
@@ -53,6 +54,17 @@ const pageDefinitions = [
       { type: 'hero', editable: ['heading', 'subheading'] },
       { type: 'blog-grid', editable: ['title', 'posts'] },
       { type: 'newsletter-signup', editable: ['title', 'description'] }
+    ]
+  },
+  {
+    id: 'portfolio',
+    title: 'Portfolio',
+    slug: '/portfolio',
+    component: Portfolio,
+    sections: [
+      { type: 'hero', editable: ['heading', 'subheading'] },
+      { type: 'portfolio-grid', editable: ['title', 'items'] },
+      { type: 'cta', editable: ['title', 'description', 'buttonText'] }
     ]
   }
 ];
@@ -117,6 +129,18 @@ const getDefaultContent = (sectionType) => {
     'newsletter-signup': {
       title: 'Newsletter',
       description: 'Subscribe for updates'
+    },
+    'portfolio-grid': {
+      title: 'Poster Portfolio',
+      items: [
+        { title: 'Creative 1', category: 'Branding' },
+        { title: 'Creative 2', category: 'E-commerce' }
+      ]
+    },
+    cta: {
+      title: 'Need high-converting creatives?',
+      description: 'Let us build your next campaign visuals.',
+      buttonText: 'Start Project'
     },
     'values-grid': {
       title: 'Our Values',

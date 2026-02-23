@@ -137,6 +137,7 @@ function AppContent() {
     if (target === "home") navigate("/");
     if (target === "about") navigate("/about");
     if (target === "services") navigate("/services");
+    if (target === "portfolio") navigate("/portfolio");
     if (target === "blog") navigate("/blog");
     if (target === "blogpost") navigate("/blog");
     if (target === "work") navigate("/#work");
@@ -172,6 +173,10 @@ function AppContent() {
         <Route
           path="/blog"
           element={<PageRenderer pageId="blog" interactive={false} pageEdits={cmsEdits.blog || {}} pageProps={{ handleNavClick, Logo }} />}
+        />
+        <Route
+          path="/portfolio"
+          element={<PageRenderer pageId="portfolio" interactive={false} pageEdits={cmsEdits.portfolio || {}} pageProps={{ handleNavClick, Logo }} />}
         />
 
         <Route path="/admin" element={<AdminLogin />} />

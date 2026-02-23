@@ -63,6 +63,15 @@ const HomeNav = ({ handleNavClick, Logo }) => {
               Services
             </button>
 
+            <button
+              onClick={() => handleNavigation("portfolio")}
+              className={`font-bold text-xs uppercase tracking-widest transition-colors ${
+                isActive("/portfolio") ? "text-[#7c7adb]" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Portfolio
+            </button>
+
             {/* BLOG LINK - ADDED */}
             <button
               onClick={() => handleNavigation("blog")}
@@ -148,6 +157,13 @@ const HomeNav = ({ handleNavClick, Logo }) => {
                   className="text-left text-2xl font-black text-white hover:text-[#7c7adb] transition-colors uppercase tracking-tighter"
                 >
                   Services
+                </button>
+
+                <button
+                  onClick={() => handleNavigation("portfolio")}
+                  className="text-left text-2xl font-black text-white hover:text-[#7c7adb] transition-colors uppercase tracking-tighter"
+                >
+                  Portfolio
                 </button>
 
                 {/* BLOG LINK - ADDED TO MOBILE MENU */}

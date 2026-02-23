@@ -28,4 +28,10 @@ export const seoByPath = {
       "Actionable insights on SEO, performance marketing, branding, analytics, and digital growth from Adverra Hub.",
     keywords: "marketing blog, seo blog, growth insights, digital strategy",
   },
+  "/portfolio": {
+    title: "Portfolio - Adverra Hub Creative Posters & Campaign Work",
+    description:
+      "Explore Adverra Hub portfolio of poster creatives, campaign visuals, and conversion-focused design work.",
+    keywords: "portfolio, creative posters, campaign creatives, ad design, adverra hub work",
+  },
 };

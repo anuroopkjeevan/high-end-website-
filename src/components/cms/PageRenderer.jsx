@@ -3,6 +3,7 @@ import Home from "../../pages/HomePage";
 import About from "../../pages/about";
 import Services from "../../pages/Services";
 import Blog from "../../pages/blog";
+import Portfolio from "../../pages/Portfolio";
 
 const NON_EDITABLE_TAGS = new Set([
   "html",
@@ -54,6 +55,8 @@ const getPageComponent = (pageId, pageProps) => {
       return <Services {...pageProps} />;
     case "blog":
       return <Blog {...pageProps} />;
+    case "portfolio":
+      return <Portfolio {...pageProps} />;
     default:
       return null;
   }
