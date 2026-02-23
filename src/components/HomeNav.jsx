@@ -41,8 +41,7 @@ const HomeNav = ({ handleNavClick, Logo }) => {
               onClick={() => handleNavigation("home")}
               className={`font-bold text-xs uppercase tracking-widest transition-colors ${
                 isActive("/") ? "text-[#7c7adb]" : "text-gray-400 hover:text-white"
-              }`}
-            >
+              }`}>
               Home
             </button>
 
@@ -63,20 +62,23 @@ const HomeNav = ({ handleNavClick, Logo }) => {
             >
               Services
             </button>
-{/* 
-            <button
-              onClick={() => handleNavigation("work")}
-              className="font-bold text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
-            >
-              Work
-            </button> */}
 
-     <button
-  onClick={() => window.location.href = "tel:7560807374"}
-  className="px-6 py-2.5 rounded-full border border-[#7c7adb]/40 text-white font-bold text-xs uppercase tracking-widest hover:bg-[#7c7adb] transition-all duration-300 shadow-[0_0_20px_rgba(124,122,219,0.1)]"
->
-  Let's Talk
-</button>
+            {/* BLOG LINK - ADDED */}
+            <button
+              onClick={() => handleNavigation("blog")}
+              className={`font-bold text-xs uppercase tracking-widest transition-colors ${
+                isActive("/blog") ? "text-[#7c7adb]" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Blog
+            </button>
+
+            <button
+              onClick={() => window.location.href = "tel:7560807374"}
+              className="px-6 py-2.5 rounded-full border border-[#7c7adb]/40 text-white font-bold text-xs uppercase tracking-widest hover:bg-[#7c7adb] transition-all duration-300 shadow-[0_0_20px_rgba(124,122,219,0.1)]"
+            >
+              Let's Talk
+            </button>
 
           </div>
 
@@ -148,34 +150,52 @@ const HomeNav = ({ handleNavClick, Logo }) => {
                   Services
                 </button>
 
+                {/* BLOG LINK - ADDED TO MOBILE MENU */}
+                <button
+                  onClick={() => handleNavigation("blog")}
+                  className="text-left text-2xl font-black text-white hover:text-[#7c7adb] transition-colors uppercase tracking-tighter"
+                >
+                  Blog
+                </button>
+
                 <button
                   onClick={() => handleNavigation("work")}
                   className="text-left text-2xl font-black text-white hover:text-[#7c7adb] transition-colors uppercase tracking-tighter"
                 >
                   Work
                 </button>
+{/* 
+        
 
-                <button
-                  onClick={() => handleNavigation("contactpage")}
-                  className="text-left text-2xl font-black text-[#7c7adb] hover:text-white transition-colors uppercase tracking-tighter"
-                >
-                  Contact
-                </button>
-
-                {/* SOCIALS */}
+                {/* SOCIALS - UPDATED WITH CORRECT LINKS */}
                 <div className="border-t border-white/10 pt-8 mt-4">
                   <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
                     Follow Us
                   </p>
                   <div className="flex gap-6">
-                    <a href="#" className="text-gray-400 hover:text-[#7c7adb] transition-colors">
+                    <a 
+                      href="https://www.instagram.com/adverra_hub/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-[#7c7adb] transition-colors"
+                    >
                       Instagram
                     </a>
-                    <a href="#" className="text-gray-400 hover:text-[#7c7adb] transition-colors">
+                    <a 
+                      href="https://www.linkedin.com/company/adverrahub" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-[#7c7adb] transition-colors"
+                    >
                       LinkedIn
                     </a>
-                    <a href="#" className="text-gray-400 hover:text-[#7c7adb] transition-colors">
-                      Twitter
+                    <a 
+                      href="https://www.facebook.com/profile.php?id=61578278429066" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-[#7c7adb] transition-colors"
+                    >
+                      Facebook
                     </a>
                   </div>
                 </div>

@@ -1,26 +1,28 @@
-import React, { useEffect } from "react";
-import { 
-  BrowserRouter as Router, 
-  Routes, 
-  Route, 
-  useNavigate, 
-  useLocation 
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
 } from "react-router-dom";
-
-import Home from "./pages/HomePage";
-import About from "./pages/about";
-import Services from "./pages/Services";
-import HomeNav from "./components/HomeNav";
-import Logo from "./assets/SINGLE LOGO PNG .png";
 import { MessageCircle } from "lucide-react";
 
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import CMSLayout from "./components/cms/CMSLayout";
+import PageRenderer from "./components/cms/PageRenderer";
+import HomeNav from "./components/HomeNav";
+import Logo from "./assets/SINGLE LOGO PNG .png";
+import AdminLogin from "./pages/admin/AdminLogin";
+import Dashboard from "./pages/admin/Dashboard";
+import PageManager from "./pages/admin/page manager";
+import Settings from "./pages/admin/settings";
+import { cmsApi } from "./services/api";
+import SEOEngine from "./components/SEOEngine";
 
-// =============================
-// 1️⃣ SPA ANALYTICS TRACKER
-// =============================
 function AnalyticsTracker() {
   const location = useLocation();
-
   useEffect(() => {
     if (window.gtag) {
       window.gtag("config", "G-LMGFDPMFMY", {
@@ -28,17 +30,11 @@ function AnalyticsTracker() {
       });
     }
   }, [location]);
-
   return null;
 }
 
-
-// =============================
-// 2️⃣ HASH LINK HANDLER
-// =============================
 function HashLinkHandler() {
   const location = useLocation();
-
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace("#", "");
@@ -50,18 +46,24 @@ function HashLinkHandler() {
       }
     }
   }, [location]);
-
   return null;
 }
 
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
 
-// =============================
-// 3️⃣ WHATSAPP BUTTON (WITH EVENT TRACKING)
-// =============================
+  if (loading) return null;
+
+  if (user?.is_staff || user?.is_superuser) {
+    return <CMSLayout>{children}</CMSLayout>;
+  }
+
+  return <Navigate to="/admin" replace />;
+};
+
 const WhatsAppButton = () => {
-  const phoneNumber = "917560807374"; // Add country code properly
+  const phoneNumber = "917560807374";
   const message = "Hello! I'm interested in your digital marketing services.";
-
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   const handleClick = () => {
@@ -74,71 +76,121 @@ const WhatsAppButton = () => {
   };
 
   return (
-    <a
-      href={whatsappUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={handleClick}
-      className="fixed bottom-6 right-6 z-50 group"
-      aria-label="Chat on WhatsApp"
-    >
+    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={handleClick} className="fixed bottom-6 right-6 z-50 group">
       <div className="relative">
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-30 transition-opacity"></span>
-
-        <div className="relative flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#25D366] to-[#128C7E] rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer border-2 border-white/20 group-hover:border-white/40">
-          <MessageCircle className="w-8 h-8 text-white group-hover:rotate-12 transition-transform duration-300" />
-
-          <span className="absolute right-20 bg-[#1e1e24] text-white px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 pointer-events-none shadow-xl border border-white/10">
+        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20"></span>
+        <div className="relative flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#25D366] to-[#128C7E] rounded-full shadow-2xl hover:scale-110 transition-all duration-300">
+          <MessageCircle className="w-8 h-8 text-white" />
+          <span className="absolute right-20 bg-[#1e1e24] text-white px-4 py-2 rounded-xl text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap">
             Chat with us
           </span>
         </div>
-
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
       </div>
     </a>
   );
 };
 
-
-// =============================
-// 4️⃣ MAIN APP CONTENT
-// =============================
 function AppContent() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [cmsEdits, setCmsEdits] = useState({});
+
+  const isAdminPath = location.pathname.startsWith("/admin");
+
+  useEffect(() => {
+    const loadPublicEdits = async () => {
+      try {
+        const data = await cmsApi.getPublicEdits();
+        setCmsEdits(data || {});
+      } catch {
+        setCmsEdits({});
+      }
+    };
+
+    if (!isAdminPath) {
+      loadPublicEdits();
+    }
+  }, [location.pathname, isAdminPath]);
+
+  useEffect(() => {
+    if (isAdminPath) return;
+
+    const sessionStorageKey = "cms_session_id";
+    let sessionId = localStorage.getItem(sessionStorageKey);
+    if (!sessionId) {
+      sessionId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      localStorage.setItem(sessionStorageKey, sessionId);
+    }
+
+    cmsApi
+      .trackInteraction({
+        session_id: sessionId,
+        page_path: location.pathname + location.search,
+        event_type: "page_view",
+      })
+      .catch(() => {
+        // Non-blocking analytics call.
+      });
+  }, [location.pathname, location.search, isAdminPath]);
 
   const handleNavClick = (target) => {
     if (target === "home") navigate("/");
     if (target === "about") navigate("/about");
     if (target === "services") navigate("/services");
+    if (target === "blog") navigate("/blog");
+    if (target === "blogpost") navigate("/blog");
     if (target === "work") navigate("/#work");
     if (target === "contactpage") navigate("/#contact");
   };
 
   return (
     <>
+      <SEOEngine />
       <AnalyticsTracker />
       <HashLinkHandler />
-      <HomeNav handleNavClick={handleNavClick} Logo={Logo} />
-      <WhatsAppButton />
+
+      {!isAdminPath && (
+        <>
+          <HomeNav handleNavClick={handleNavClick} Logo={Logo} />
+          <WhatsAppButton />
+        </>
+      )}
 
       <Routes>
-        <Route path="/" element={<Home handleNavClick={handleNavClick} Logo={Logo} />} />
-        <Route path="/about" element={<About handleNavClick={handleNavClick} Logo={Logo} />} />
-        <Route path="/services" element={<Services handleNavClick={handleNavClick} Logo={Logo} />} />
+        <Route
+          path="/"
+          element={<PageRenderer pageId="home" interactive={false} pageEdits={cmsEdits.home || {}} pageProps={{ handleNavClick, Logo }} />}
+        />
+        <Route
+          path="/about"
+          element={<PageRenderer pageId="about" interactive={false} pageEdits={cmsEdits.about || {}} pageProps={{ handleNavClick, Logo }} />}
+        />
+        <Route
+          path="/services"
+          element={<PageRenderer pageId="services" interactive={false} pageEdits={cmsEdits.services || {}} pageProps={{ handleNavClick, Logo }} />}
+        />
+        <Route
+          path="/blog"
+          element={<PageRenderer pageId="blog" interactive={false} pageEdits={cmsEdits.blog || {}} pageProps={{ handleNavClick, Logo }} />}
+        />
+
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/admin/pages" element={<ProtectedRoute><PageManager /></ProtectedRoute>} />
+        <Route path="/admin/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </>
   );
 }
 
-
-// =============================
-// 5️⃣ APP WRAPPER
-// =============================
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

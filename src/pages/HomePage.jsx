@@ -13,7 +13,7 @@ import {
   MapPin, 
   Instagram, 
   Linkedin, 
-  Facebook, // Changed from Twitter to Facebook
+  Facebook,
   Users,
   Target,
   ChevronDown,
@@ -28,11 +28,12 @@ import {
 } from 'lucide-react'
 
 import boska from '../assets/boska.png';
-import jaza from '../assets/jaza.png';
+import fire from '../assets/firefly logo.png';
 import jockey from '../assets/JOCKEY LOGO .png';
 import bata from '../assets/bata.png';
-import poshrealestate from '../assets/Posh_RealEstate Logo.png';
-import posh from '../assets/poshconsultants.png';
+import modern from '../assets/modern bakery.png';
+import house from '../assets/house fairy .png';
+import caliara from '../assets/calliara.png';
 
 // --- Animation Variants ---
 const fadeInUp = {
@@ -50,40 +51,123 @@ const staggerContainer = {
   }
 };
 
-// --- Updated Sub-Component: Colorful Client Logo Ticker ---
+// --- Updated Sub-Component: Colorful Client Logo Ticker with Testimonials ---
 const LogoTicker = () => {
   const clientLogos = [
-    { name: "Client 1", url: poshrealestate },
-    { name: "Client 2", url: boska },
-    { name: "Client 6", url: posh },
-    { name: "Client 3", url: jaza },
-    { name: "Client 4", url: jockey },
-    { name: "Client 5", url: bata },
+    { 
+      name: "Modern Bakery", 
+      url: modern,
+      testimonial: "Adverra Hub transformed our digital presence. Sales up 156% in 6 months!",
+      service: "Digital Marketing"
+    },
+    { 
+      name: "Boska", 
+      url: boska,
+      testimonial: "Their SEO strategy doubled our organic traffic. Unbelievable results!",
+      service: "SEO"
+    },
+    { 
+      name: "House Fairy", 
+      url: house,
+      testimonial: "Performance marketing that actually delivers. ROAS improved by 3.2x.",
+      service: "Performance Marketing"
+    },
+    { 
+      name: "Firefly", 
+      url: fire,
+      testimonial: "The development team built us a site that converts like crazy. 40% faster load times.",
+      service: "Development"
+    },
+    { 
+      name: "Jockey", 
+      url: jockey,
+      testimonial: "App downloads skyrocketed 200% after their ASO strategy.",
+      service: "App Development"
+    },
+    { 
+      name: "Bata", 
+      url: bata,
+      testimonial: "Analytics insights helped us make data-driven decisions. Revenue up 78%.",
+      service: "Analytics"
+    },
+    { 
+      name: "Calliara", 
+      url: caliara,
+      testimonial: "They don't just market, they engineer growth. Best decision we made.",
+      service: "Digital Marketing"
+    }
   ];
 
   const duplicatedLogos = [...clientLogos, ...clientLogos];
 
   return (
-    <div className="py-12 bg-[#121214] overflow-hidden border-y border-white/5 relative">
-      <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+    <div className="py-16 bg-[#121214] overflow-hidden border-y border-white/5 relative">
+      {/* Gradient overlays for smooth edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#121214] to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#121214] to-transparent z-10" />
+      
+      <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <motion.div 
-          className="flex flex-none gap-20 pr-20 items-center"
+          className="flex flex-none gap-16 pr-16 items-center"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
-            duration: 20,
+            duration: 30,
             repeat: Infinity,
             ease: "linear",
           }}
         >
           {duplicatedLogos.map((logo, index) => (
-            <img 
+            <div 
               key={index} 
-              src={logo.url} 
-              alt={logo.name} 
-              className="h-12 w-auto opacity-90 hover:opacity-100 transition-all duration-300 object-contain" 
-            />
+              className="group relative flex flex-col items-center min-w-[280px]"
+            >
+              {/* Logo */}
+              <img 
+                src={logo.url} 
+                alt={logo.name} 
+                className="h-14 w-auto mb-4 opacity-90 group-hover:opacity-100 transition-all duration-300 object-contain" 
+              />
+              
+              {/* Testimonial Card - Always Visible */}
+              <div className="bg-[#1e1e24] rounded-xl p-4 border border-[#7c7adb]/20 shadow-lg w-full">
+                {/* Service Badge */}
+                <div className="inline-block px-2 py-1 mb-2 bg-[#7c7adb]/10 rounded-full">
+                  <span className="text-[8px] font-black text-[#7c7adb] uppercase tracking-widest">
+                    {logo.service}
+                  </span>
+                </div>
+                
+                {/* Testimonial Text */}
+                <p className="text-xs text-gray-300 font-medium leading-relaxed mb-2">
+                  "{logo.testimonial}"
+                </p>
+                
+                {/* Client Name */}
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-white uppercase tracking-wider">
+                    {logo.name}
+                  </span>
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-2.5 h-2.5 text-[#7c7adb] fill-current" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </motion.div>
+      </div>
+      
+      {/* Bottom indicator that it's scrolling testimonials */}
+      <div className="flex justify-center mt-8 gap-2">
+        <div className="w-2 h-2 rounded-full bg-[#7c7adb]/50 animate-pulse" />
+        <span className="text-[8px] text-gray-600 uppercase tracking-widest font-bold">
+          Client Success Stories • Always Visible
+        </span>
+        <div className="w-2 h-2 rounded-full bg-[#7c7adb]/50 animate-pulse" />
       </div>
     </div>
   );
@@ -99,113 +183,113 @@ const Home = ({ handleNavClick, Logo }) => {
   return (
     <div className="min-h-screen bg-[#121214] text-white font-sans selection:bg-[#7c7adb] selection:text-white overflow-x-hidden">
       
-{/* --- Hero Section --- */}
-<section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 container mx-auto px-6">
-  <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-[#7c7adb]/10 rounded-full blur-[120px] pointer-events-none" />
-  <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#4e4c85]/15 rounded-full blur-[100px] pointer-events-none" />
+      {/* --- Hero Section --- */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 container mx-auto px-6">
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-[#7c7adb]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#4e4c85]/15 rounded-full blur-[100px] pointer-events-none" />
 
-  <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
-    <motion.div 
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={staggerContainer}
-      className="order-1"
-    >
-      <motion.div variants={fadeInUp} className="inline-block px-4 py-1 mb-6 rounded-full border border-[#7c7adb]/20 bg-[#7c7adb]/5 text-[#7c7adb] text-xs font-mono tracking-widest uppercase font-bold">
-        Digital Excellence
-      </motion.div>
-      <motion.h1 variants={fadeInUp} className="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-6 uppercase">
-        Scale Your <br />
-        Business with <br />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7c7adb] to-[#a3a1f7]">
-          Digital Mastery
-        </span>
-      </motion.h1>
-      <motion.p variants={fadeInUp} className="text-gray-400 text-lg lg:text-xl max-w-lg mb-8 leading-relaxed font-medium">
-        We drive digital growth through performance marketing and strategic development.
-      </motion.p>
-      
-      {/* Desktop CTA and Stats - Hidden on mobile */}
-      <motion.div variants={fadeInUp} className="hidden lg:flex flex-col sm:flex-row gap-4">
-        <button 
-          onClick={() => handleNavClick('contactpage')}
-          className="group relative px-8 py-4 bg-[#7c7adb] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(124,122,219,0.2)]"
-        >
-          <a href="tel:7560807374" className="group relative inline-flex items-center">
-            <span className="relative z-10 flex items-center gap-2">
-              BOOK A CALL
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </a>
-        </button>
-        <div className="flex items-center gap-6 px-4">
-          <div className="text-center">
-            <p className="text-2xl font-black text-[#7c7adb]">25+</p>
-            <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Clients</p>
-          </div>
-          <div className="w-px h-8 bg-white/10" />
-          <div className="text-center">
-            <p className="text-2xl font-black text-[#7c7adb]">98%</p>
-            <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Success</p>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
+        <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="order-1"
+          >
+            <motion.div variants={fadeInUp} className="inline-block px-4 py-1 mb-6 rounded-full border border-[#7c7adb]/20 bg-[#7c7adb]/5 text-[#7c7adb] text-xs font-mono tracking-widest uppercase font-bold">
+              Digital Excellence
+            </motion.div>
+            <motion.h1 variants={fadeInUp} className="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-6 uppercase">
+              Scale Your <br />
+              Business with <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7c7adb] to-[#a3a1f7]">
+                Digital Mastery
+              </span>
+            </motion.h1>
+            <motion.p variants={fadeInUp} className="text-gray-400 text-lg lg:text-xl max-w-lg mb-8 leading-relaxed font-medium">
+              We drive digital growth through performance marketing and strategic development.
+            </motion.p>
+            
+            {/* Desktop CTA and Stats - Hidden on mobile */}
+            <motion.div variants={fadeInUp} className="hidden lg:flex flex-col sm:flex-row gap-4">
+              <button 
+                onClick={() => handleNavClick('contactpage')}
+                className="group relative px-8 py-4 bg-[#7c7adb] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(124,122,219,0.2)]"
+              >
+                <a href="tel:7560807374" className="group relative inline-flex items-center">
+                  <span className="relative z-10 flex items-center gap-2">
+                    BOOK A CALL
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </a>
+              </button>
+              <div className="flex items-center gap-6 px-4">
+                <div className="text-center">
+                  <p className="text-2xl font-black text-[#7c7adb]">25+</p>
+                  <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Clients</p>
+                </div>
+                <div className="w-px h-8 bg-white/10" />
+                <div className="text-center">
+                  <p className="text-2xl font-black text-[#7c7adb]">98%</p>
+                  <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Success</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
 
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8 }}
-      className="relative order-2"
-    >
-      <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 bg-[#1e1e24] p-3 shadow-2xl">
-        <img 
-          src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop" 
-          alt="Performance marketing analytics dashboard with charts and metrics" 
-          className="rounded-[2rem] w-full h-auto object-cover transition-opacity duration-500"
-        />
-        <div className="absolute -bottom-6 -left-6 bg-[#1e1e24] border border-[#7c7adb]/30 p-5 rounded-[2rem] shadow-2xl flex items-center gap-3">
-        </div>
-      </div>
-    </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative order-2"
+          >
+            <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 bg-[#1e1e24] p-3 shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop" 
+                alt="Performance marketing analytics dashboard with charts and metrics" 
+                className="rounded-[2rem] w-full h-auto object-cover transition-opacity duration-500"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-[#1e1e24] border border-[#7c7adb]/30 p-5 rounded-[2rem] shadow-2xl flex items-center gap-3">
+              </div>
+            </div>
+          </motion.div>
 
-    {/* Mobile CTA and Stats - Shows only on mobile, positioned after image */}
-    <motion.div 
-      variants={fadeInUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className="flex flex-col gap-6 lg:hidden order-3 mt-4"
-    >
-      <button 
-        onClick={() => handleNavClick('contactpage')}
-        className="group relative w-full px-8 py-5 bg-[#7c7adb] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all hover:scale-[1.02] active:scale-98 shadow-[0_10px_30px_rgba(124,122,219,0.2)]"
-      >
-        <a href="tel:7560807374" className="group relative inline-flex items-center justify-center w-full">
-          <span className="relative z-10 flex items-center gap-3">
-            BOOK A CALL
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </span>
-        </a>
-      </button>
-      
-      <div className="flex items-center justify-center gap-8 px-4 py-4 bg-[#1e1e24]/50 rounded-2xl border border-white/5">
-        <div className="text-center">
-          <p className="text-3xl font-black text-[#7c7adb]">25+</p>
-          <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Clients</p>
+          {/* Mobile CTA and Stats - Shows only on mobile, positioned after image */}
+          <motion.div 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex flex-col gap-6 lg:hidden order-3 mt-4"
+          >
+            <button 
+              onClick={() => handleNavClick('contactpage')}
+              className="group relative w-full px-8 py-5 bg-[#7c7adb] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all hover:scale-[1.02] active:scale-98 shadow-[0_10px_30px_rgba(124,122,219,0.2)]"
+            >
+              <a href="tel:7560807374" className="group relative inline-flex items-center justify-center w-full">
+                <span className="relative z-10 flex items-center gap-3">
+                  BOOK A CALL
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
+            </button>
+            
+            <div className="flex items-center justify-center gap-8 px-4 py-4 bg-[#1e1e24]/50 rounded-2xl border border-white/5">
+              <div className="text-center">
+                <p className="text-3xl font-black text-[#7c7adb]">25+</p>
+                <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Clients</p>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div className="text-center">
+                <p className="text-3xl font-black text-[#7c7adb]">98%</p>
+                <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Success</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-        <div className="w-px h-10 bg-white/10" />
-        <div className="text-center">
-          <p className="text-3xl font-black text-[#7c7adb]">98%</p>
-          <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Success</p>
-        </div>
-      </div>
-    </motion.div>
-  </div>
-</section>
+      </section>
 
-      {/* --- Client Logo Ticker Section --- */}
+      {/* --- Client Logo Ticker with Testimonials Section --- */}
       <LogoTicker />
 
       {/* --- About Us Brief Section --- */}
@@ -314,8 +398,8 @@ const Home = ({ handleNavClick, Logo }) => {
             <div className="grid sm:grid-cols-2 gap-12">
               <div className="space-y-4">
                 <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Contact</p>
-                <p className="font-bold text-lg">adverrahub@gmail.com</p>
-                <p className="font-bold text-lg">+91 7306771387</p>
+                <p className="font-bold text-lg">info@adverrahub.com</p>
+                <p className="font-bold text-lg">+91 7560807374</p>
               </div>
               <div className="space-y-4">
                 <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Office</p>
