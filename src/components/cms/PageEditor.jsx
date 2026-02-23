@@ -87,8 +87,30 @@ const PageEditor = ({ page, onSave, onClose, initialEdits = {} }) => {
     }
     
     const type = editedElement.type?.toLowerCase() || '';
-    if (type.startsWith('h') || type === 'p' || type === 'span' || type === 'button' || type === 'a') {
+    if (
+      type.startsWith('h') ||
+      type === 'p' ||
+      type === 'span' ||
+      type === 'button' ||
+      type === 'a' ||
+      type === 'li' ||
+      type === 'label' ||
+      type === 'small' ||
+      type === 'strong' ||
+      type === 'em' ||
+      type === 'b' ||
+      type === 'i' ||
+      type === 'blockquote' ||
+      type === 'figcaption' ||
+      type === 'td' ||
+      type === 'th' ||
+      type === 'option'
+    ) {
       return 'text';
+    }
+
+    if (type === 'input' || type === 'textarea') {
+      return 'input';
     }
     
     if (type.includes('motion')) {
@@ -128,6 +150,34 @@ const PageEditor = ({ page, onSave, onClose, initialEdits = {} }) => {
     // For complex child trees, replace with plain text content.
     return value;
   };
+
+  const normalizeWeight = (weight) => {
+    if (weight === undefined || weight === null) return '';
+    const raw = String(weight).toLowerCase();
+    if (raw === 'bold') return '700';
+    const numeric = Number.parseInt(raw, 10);
+    if (!Number.isNaN(numeric)) return String(numeric);
+    return raw;
+  };
+
+  const styleValue = (key) => editedElement?.props?.style?.[key] ?? '';
+
+  const handleStyleChange = (key, value) => {
+    const currentStyle = editedElement?.props?.style || {};
+    handlePropChange('style', {
+      ...currentStyle,
+      [key]: value,
+    });
+  };
+
+  const isBold = () => {
+    const weight = normalizeWeight(styleValue('fontWeight'));
+    return weight === 'bold' || (!Number.isNaN(Number(weight)) && Number(weight) >= 600);
+  };
+
+  const isItalic = () => String(styleValue('fontStyle')).toLowerCase() === 'italic';
+  const isUnderline = () => String(styleValue('textDecorationLine')).toLowerCase().includes('underline');
+  const isAligned = (align) => String(styleValue('textAlign')).toLowerCase() === align;
 
   return (
     <div className="fixed inset-0 bg-[#0f0f11] z-[100] flex overflow-hidden">
@@ -235,6 +285,30 @@ const PageEditor = ({ page, onSave, onClose, initialEdits = {} }) => {
                 </>
               )}
 
+              {/* INPUT / TEXTAREA EDITING */}
+              {editorType === 'input' && (
+                <>
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-400 font-bold uppercase">Value</label>
+                    <input
+                      type="text"
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm text-white focus:border-[#7c7adb] outline-none"
+                      value={editedElement.props?.value || ''}
+                      onChange={(e) => handlePropChange('value', e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-400 font-bold uppercase">Placeholder</label>
+                    <input
+                      type="text"
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm text-white focus:border-[#7c7adb] outline-none"
+                      value={editedElement.props?.placeholder || ''}
+                      onChange={(e) => handlePropChange('placeholder', e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+
               {/* TEXT EDITING */}
               {(editorType === 'text' || editorType === 'motion') && (
                 <>
@@ -252,29 +326,89 @@ const PageEditor = ({ page, onSave, onClose, initialEdits = {} }) => {
                   <div className="space-y-2">
                     <label className="text-xs text-gray-400 font-bold uppercase">Formatting</label>
                     <div className="flex gap-2">
-                      <button className="p-2 bg-black/40 border border-white/10 rounded-lg hover:bg-[#7c7adb]/20">
+                      <button
+                        type="button"
+                        onClick={() => handleStyleChange('fontWeight', isBold() ? '400' : '700')}
+                        className={`p-2 border rounded-lg transition ${
+                          isBold()
+                            ? 'bg-[#7c7adb]/30 border-[#7c7adb]/70'
+                            : 'bg-black/40 border-white/10 hover:bg-[#7c7adb]/20'
+                        }`}
+                      >
                         <Bold size={16} className="text-white"/>
                       </button>
-                      <button className="p-2 bg-black/40 border border-white/10 rounded-lg hover:bg-[#7c7adb]/20">
+                      <button
+                        type="button"
+                        onClick={() => handleStyleChange('fontStyle', isItalic() ? 'normal' : 'italic')}
+                        className={`p-2 border rounded-lg transition ${
+                          isItalic()
+                            ? 'bg-[#7c7adb]/30 border-[#7c7adb]/70'
+                            : 'bg-black/40 border-white/10 hover:bg-[#7c7adb]/20'
+                        }`}
+                      >
                         <Italic size={16} className="text-white"/>
                       </button>
-                      <button className="p-2 bg-black/40 border border-white/10 rounded-lg hover:bg-[#7c7adb]/20">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleStyleChange('textDecorationLine', isUnderline() ? 'none' : 'underline')
+                        }
+                        className={`p-2 border rounded-lg transition ${
+                          isUnderline()
+                            ? 'bg-[#7c7adb]/30 border-[#7c7adb]/70'
+                            : 'bg-black/40 border-white/10 hover:bg-[#7c7adb]/20'
+                        }`}
+                      >
                         <Underline size={16} className="text-white"/>
                       </button>
                     </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-400 font-bold uppercase">Text Color</label>
+                    <input
+                      type="color"
+                      className="w-16 h-10 p-1 bg-black/40 border border-white/10 rounded-lg"
+                      value={styleValue('color') || '#ffffff'}
+                      onChange={(e) => handleStyleChange('color', e.target.value)}
+                    />
                   </div>
 
                   {/* Alignment */}
                   <div className="space-y-2">
                     <label className="text-xs text-gray-400 font-bold uppercase">Alignment</label>
                     <div className="flex gap-2">
-                      <button className="p-2 bg-black/40 border border-white/10 rounded-lg hover:bg-[#7c7adb]/20">
+                      <button
+                        type="button"
+                        onClick={() => handleStyleChange('textAlign', 'left')}
+                        className={`p-2 border rounded-lg transition ${
+                          isAligned('left')
+                            ? 'bg-[#7c7adb]/30 border-[#7c7adb]/70'
+                            : 'bg-black/40 border-white/10 hover:bg-[#7c7adb]/20'
+                        }`}
+                      >
                         <AlignLeft size={16} className="text-white"/>
                       </button>
-                      <button className="p-2 bg-black/40 border border-white/10 rounded-lg hover:bg-[#7c7adb]/20">
+                      <button
+                        type="button"
+                        onClick={() => handleStyleChange('textAlign', 'center')}
+                        className={`p-2 border rounded-lg transition ${
+                          isAligned('center')
+                            ? 'bg-[#7c7adb]/30 border-[#7c7adb]/70'
+                            : 'bg-black/40 border-white/10 hover:bg-[#7c7adb]/20'
+                        }`}
+                      >
                         <AlignCenter size={16} className="text-white"/>
                       </button>
-                      <button className="p-2 bg-black/40 border border-white/10 rounded-lg hover:bg-[#7c7adb]/20">
+                      <button
+                        type="button"
+                        onClick={() => handleStyleChange('textAlign', 'right')}
+                        className={`p-2 border rounded-lg transition ${
+                          isAligned('right')
+                            ? 'bg-[#7c7adb]/30 border-[#7c7adb]/70'
+                            : 'bg-black/40 border-white/10 hover:bg-[#7c7adb]/20'
+                        }`}
+                      >
                         <AlignRight size={16} className="text-white"/>
                       </button>
                     </div>
