@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (typeof window !== "undefined" &&
+  /(^|\.)adverrahub\.com$/i.test(window.location.hostname)
+    ? "https://api.adverrahub.com/api"
+    : "http://127.0.0.1:8000/api");
 const TOKEN_KEY = "cms_auth_token";
 
 export const api = axios.create({
