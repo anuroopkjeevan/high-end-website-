@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, FileText, Settings, LogOut, Shield, ImagePlus } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, LogOut, Shield } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -12,7 +12,6 @@ const Sidebar = ({ isOpen }) => {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { name: 'Page Manager', icon: FileText, path: '/admin/pages' },
-    { name: 'Creatives', icon: ImagePlus, path: '/admin/creatives' },
     { name: 'Settings', icon: Settings, path: '/admin/settings' },
   ];
 

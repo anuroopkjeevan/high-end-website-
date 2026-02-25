@@ -105,4 +105,12 @@ export const cmsApi = {
     const { data } = await api.get("/cms/public-portfolio-creatives/");
     return data;
   },
+  async uploadCreativeImage(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    const { data } = await api.post("/cms/upload-image/", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return data;
+  },
 };
