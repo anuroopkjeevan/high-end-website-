@@ -86,4 +86,23 @@ export const cmsApi = {
     const { data } = await api.get("/cms/dashboard-stats/", { params });
     return data;
   },
+  async listCreatives() {
+    const { data } = await api.get("/cms/portfolio-creatives/");
+    return data;
+  },
+  async createCreative(payload) {
+    const { data } = await api.post("/cms/portfolio-creatives/", payload);
+    return data;
+  },
+  async updateCreative(creativeId, payload) {
+    const { data } = await api.patch(`/cms/portfolio-creatives/${creativeId}/`, payload);
+    return data;
+  },
+  async deleteCreative(creativeId) {
+    await api.delete(`/cms/portfolio-creatives/${creativeId}/`);
+  },
+  async getPublicCreatives() {
+    const { data } = await api.get("/cms/public-portfolio-creatives/");
+    return data;
+  },
 };

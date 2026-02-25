@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Filter, Image as ImageIcon, Instagram, Linkedin, Facebook } from "lucide-react";
+import { cmsApi } from "../services/api";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -17,60 +18,95 @@ const staggerContainer = {
   },
 };
 
-const creatives = [
+const fallbackCreatives = [
   {
     id: 1,
     title: "Luxury Campaign Poster",
     category: "Luxury",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=max",
+    image_url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=max",
+    link_url: "",
+    tile: "large",
   },
   {
     id: 2,
     title: "D2C Product Launch",
     category: "E-commerce",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1400&auto=format&fit=max",
+    image_url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1400&auto=format&fit=max",
+    link_url: "",
+    tile: "large",
   },
   {
     id: 3,
     title: "Festival Offer Creative",
     category: "Seasonal",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=max",
+    image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=max",
+    link_url: "",
+    tile: "large",
   },
   {
     id: 4,
     title: "Real Estate Lead Poster",
     category: "Real Estate",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=max",
+    image_url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=max",
+    link_url: "",
+    tile: "large",
   },
   {
     id: 5,
     title: "Restaurant Social Ad",
     category: "Food",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=max",
+    image_url: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=max",
+    link_url: "",
+    tile: "large",
   },
   {
     id: 6,
     title: "Brand Awareness Poster",
     category: "Branding",
-    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?q=80&w=1400&auto=format&fit=max",
+    image_url: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?q=80&w=1400&auto=format&fit=max",
+    link_url: "",
+    tile: "large",
   },
 ];
 
+const tileClassMap = {
+  large: "md:col-span-6 lg:col-span-3",
+  wide: "md:col-span-12 lg:col-span-6",
+};
+
 const Portfolio = ({ handleNavClick }) => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [creativeItems, setCreativeItems] = useState(fallbackCreatives);
   const phoneNumber = "917560807374";
   const whatsappMessage = "Hello! I want to start a campaign for my brand.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
+  useEffect(() => {
+    const loadCreatives = async () => {
+      try {
+        const data = await cmsApi.getPublicCreatives();
+        if (Array.isArray(data) && data.length > 0) {
+          setCreativeItems(data);
+        } else {
+          setCreativeItems(fallbackCreatives);
+        }
+      } catch {
+        setCreativeItems(fallbackCreatives);
+      }
+    };
+
+    loadCreatives();
+  }, []);
+
   const categories = useMemo(
-    () => ["All", ...Array.from(new Set(creatives.map((item) => item.category)))],
-    []
+    () => ["All", ...Array.from(new Set(creativeItems.map((item) => item.category).filter(Boolean)))],
+    [creativeItems]
   );
 
   const filteredCreatives = useMemo(() => {
-    if (activeFilter === "All") return creatives;
-    return creatives.filter((item) => item.category === activeFilter);
-  }, [activeFilter]);
+    if (activeFilter === "All") return creativeItems;
+    return creativeItems.filter((item) => item.category === activeFilter);
+  }, [activeFilter, creativeItems]);
 
   return (
     <div className="min-h-screen bg-[#121214] text-white font-sans selection:bg-[#7c7adb] selection:text-white overflow-x-hidden">
@@ -146,35 +182,35 @@ const Portfolio = ({ handleNavClick }) => {
       </section>
 
       <section className="py-16 lg:py-20 container mx-auto px-6">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5">
           <AnimatePresence>
             {filteredCreatives.map((item, index) => (
               <motion.article
-                key={item.id}
+                key={item.id || `${item.image_url}-${index}`}
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -25 }}
                 transition={{ delay: index * 0.05 }}
-                whileHover={{ y: -8 }}
-                className="group"
+                whileHover={{ y: -5 }}
+                className={`group ${tileClassMap[item.tile] || tileClassMap.large}`}
               >
-                <div className="bg-[#1e1e24] rounded-[2rem] overflow-hidden border border-white/5 hover:border-[#7c7adb]/30 transition-all duration-500 h-full flex flex-col">
-                  <div className="relative h-72 bg-[#0f0f11]">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-contain p-3"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-[#7c7adb]/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-white uppercase tracking-wider">
-                        {item.category}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-7">
-                    <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-[#7c7adb] transition-colors">
-                      {item.title}
-                    </h3>
+                <div className="bg-[#1e1e24] rounded-2xl overflow-hidden border border-white/5 hover:border-[#7c7adb]/30 transition-all duration-500 h-full flex flex-col">
+                  <div className="relative aspect-[4/3] bg-[#0f0f11]">
+                    {item.link_url ? (
+                      <a href={item.link_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                        <img
+                          src={item.image_url}
+                          alt={item.title || "Portfolio creative"}
+                          className="w-full h-full object-contain p-2"
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        src={item.image_url}
+                        alt={item.title || "Portfolio creative"}
+                        className="w-full h-full object-contain p-2"
+                      />
+                    )}
                   </div>
                 </div>
               </motion.article>

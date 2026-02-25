@@ -18,6 +18,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import PageManager from "./pages/admin/page manager";
 import Settings from "./pages/admin/settings";
+import Creatives from "./pages/admin/Creatives";
 import { cmsApi } from "./services/api";
 import SEOEngine from "./components/SEOEngine";
 
@@ -182,6 +183,7 @@ function AppContent() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/admin/pages" element={<ProtectedRoute><PageManager /></ProtectedRoute>} />
+        <Route path="/admin/creatives" element={<ProtectedRoute><Creatives /></ProtectedRoute>} />
         <Route path="/admin/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
       </Routes>
