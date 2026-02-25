@@ -22,42 +22,45 @@ const creatives = [
     id: 1,
     title: "Luxury Campaign Poster",
     category: "Luxury",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=max",
   },
   {
     id: 2,
     title: "D2C Product Launch",
     category: "E-commerce",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1400&auto=format&fit=max",
   },
   {
     id: 3,
     title: "Festival Offer Creative",
     category: "Seasonal",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=max",
   },
   {
     id: 4,
     title: "Real Estate Lead Poster",
     category: "Real Estate",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=max",
   },
   {
     id: 5,
     title: "Restaurant Social Ad",
     category: "Food",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=max",
   },
   {
     id: 6,
     title: "Brand Awareness Poster",
     category: "Branding",
-    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?q=80&w=1400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?q=80&w=1400&auto=format&fit=max",
   },
 ];
 
 const Portfolio = ({ handleNavClick }) => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const phoneNumber = "917560807374";
+  const whatsappMessage = "Hello! I want to start a campaign for my brand.";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(creatives.map((item) => item.category)))],
@@ -156,11 +159,11 @@ const Portfolio = ({ handleNavClick }) => {
                 className="group"
               >
                 <div className="bg-[#1e1e24] rounded-[2rem] overflow-hidden border border-white/5 hover:border-[#7c7adb]/30 transition-all duration-500 h-full flex flex-col">
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-72 bg-[#0f0f11]">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-contain p-3"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 bg-[#7c7adb]/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-white uppercase tracking-wider">
@@ -198,7 +201,7 @@ const Portfolio = ({ handleNavClick }) => {
             We can design campaign-ready posters tailored to your audience and channels.
           </p>
           <button
-            onClick={() => handleNavClick("contactpage")}
+            onClick={() => window.open(whatsappUrl, "_blank", "noopener,noreferrer")}
             className="group px-10 py-5 bg-gradient-to-r from-[#7c7adb] to-[#a3a1f7] text-white font-bold text-lg rounded-[20px] transition-all duration-500 hover:scale-105 shadow-[0_10px_30px_rgba(124,122,219,0.3)] inline-flex items-center gap-3"
           >
             Start Your Campaign
@@ -215,7 +218,7 @@ const Portfolio = ({ handleNavClick }) => {
                      LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
                    </h2>
                    <button 
-                     onClick={() => handleNavClick('contactpage')}
+                     onClick={() => window.location.href = `tel:${phoneNumber}`}
                      className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
                    >
                      Get In Touch <ArrowRight />
