@@ -173,7 +173,7 @@ const LogoTicker = () => {
   );
 };
 
-const Home = ({ handleNavClick, Logo }) => {
+const Home = ({ handleNavClick, openLeadForm, Logo }) => {
   const [expandedService, setExpandedService] = useState(null);
 
   const toggleService = (index) => {
@@ -388,7 +388,7 @@ const Home = ({ handleNavClick, Logo }) => {
                 LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
               </h2>
               <button 
-                onClick={() => handleNavClick('contactpage')}
+                onClick={() => openLeadForm?.()}
                 className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
               >
                 Get In Touch <ArrowRight />

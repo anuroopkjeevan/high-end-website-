@@ -84,7 +84,7 @@ const staggerContainer = {
   }
 };
 
-const Services = ({ handleNavClick, Logo }) => {
+const Services = ({ handleNavClick, openLeadForm, Logo }) => {
   const [activeIndustry, setActiveIndustry] = useState(0);
 
   return (
@@ -731,7 +731,7 @@ const Services = ({ handleNavClick, Logo }) => {
                 LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
               </h2>
               <button 
-                onClick={() => handleNavClick('contactpage')}
+                onClick={() => openLeadForm?.()}
                 className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
               >
                 Get In Touch <ArrowRight />
@@ -741,7 +741,7 @@ const Services = ({ handleNavClick, Logo }) => {
             <div className="grid sm:grid-cols-2 gap-12">
                <div className="space-y-4">
                 <p className="font-black uppercase text-xs tracking-widest text-[#7c7adb]">Contact</p>
-                <p className="font-bold text-lg">info@averrahub.com</p>
+                <p className="font-bold text-lg">info@adverrahub.com</p>
                 <p className="font-bold text-lg">+91 7560807374</p>
               </div>
               <div className="space-y-4">

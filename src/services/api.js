@@ -113,4 +113,8 @@ export const cmsApi = {
     });
     return data;
   },
+  async submitPublicLead(payload) {
+    const { data } = await api.post("/cms/public-lead/", payload);
+    return data;
+  },
 };

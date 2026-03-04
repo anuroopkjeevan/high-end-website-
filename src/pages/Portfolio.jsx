@@ -74,7 +74,7 @@ const tileClassMap = {
   wide: "md:col-span-12 lg:col-span-6",
 };
 
-const Portfolio = ({ handleNavClick }) => {
+const Portfolio = ({ handleNavClick, openLeadForm }) => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [creativeItems, setCreativeItems] = useState(fallbackCreatives);
   const phoneNumber = "917560807374";
@@ -254,7 +254,7 @@ const Portfolio = ({ handleNavClick }) => {
                      LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
                    </h2>
                    <button 
-                     onClick={() => window.location.href = `tel:${phoneNumber}`}
+                     onClick={() => openLeadForm?.()}
                      className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
                    >
                      Get In Touch <ArrowRight />
@@ -305,6 +305,7 @@ const Portfolio = ({ handleNavClick }) => {
                </div>
              </div>
            </footer>
+
     </div>
   );
 };
