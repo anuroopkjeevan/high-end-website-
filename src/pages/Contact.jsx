@@ -27,6 +27,8 @@ const Contact = () => {
 
     const trimmedName = formState.name.trim();
     const trimmedEmail = formState.email.trim();
+    const trimmedPhone = formState.phone.trim();
+    const normalizedPhone = trimmedPhone || "-";
     const trimmedMessage = formState.message.trim();
 
     if (!trimmedName || !trimmedEmail || !trimmedMessage) {
@@ -55,9 +57,14 @@ const Contact = () => {
         {
           name: trimmedName,
           email: trimmedEmail,
-          phone: formState.phone.trim() || "-",
+          phone: normalizedPhone,
+          phone_number: normalizedPhone,
+          contact_number: normalizedPhone,
+          mobile: normalizedPhone,
+          lead_phone: normalizedPhone,
           business: formState.business.trim() || "-",
           message: trimmedMessage,
+          message_with_phone: `Phone: ${normalizedPhone}\n\n${trimmedMessage}`,
           page_path: typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "-",
           to_email: "info@adverrahub.com",
         },

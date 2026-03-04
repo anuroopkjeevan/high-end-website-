@@ -38,6 +38,8 @@ const LeadFormModal = ({ isOpen, onClose, recipientEmail = "info@adverrahub.com"
 
     const trimmedName = leadForm.name.trim();
     const trimmedEmail = leadForm.email.trim();
+    const trimmedPhone = leadForm.phone.trim();
+    const normalizedPhone = trimmedPhone || "-";
     const trimmedMessage = leadForm.message.trim();
 
     if (!trimmedName || !trimmedEmail || !trimmedMessage) {
@@ -70,9 +72,14 @@ const LeadFormModal = ({ isOpen, onClose, recipientEmail = "info@adverrahub.com"
         {
           name: trimmedName,
           email: trimmedEmail,
-          phone: leadForm.phone.trim() || "-",
+          phone: normalizedPhone,
+          phone_number: normalizedPhone,
+          contact_number: normalizedPhone,
+          mobile: normalizedPhone,
+          lead_phone: normalizedPhone,
           business: leadForm.business.trim() || "-",
           message: trimmedMessage,
+          message_with_phone: `Phone: ${normalizedPhone}\n\n${trimmedMessage}`,
           page_path: typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "-",
           to_email: recipientEmail,
         },

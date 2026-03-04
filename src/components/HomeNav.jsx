@@ -103,7 +103,7 @@ const HomeNav = ({ handleNavClick, Logo }) => {
           {/* MOBILE HEADER BUTTONS */}
           <div className="md:hidden flex items-center gap-4">
             <button
-              onClick={() => handleNavigation("contactpage")}
+              onClick={() => window.location.href = "tel:7560807374"}
               className="px-4 py-2 rounded-full border border-[#7c7adb]/40 text-white font-bold text-xs uppercase tracking-widest hover:bg-[#7c7adb] transition-all duration-300"
             >
               Let's Talk
