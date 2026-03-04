@@ -173,7 +173,7 @@ const LogoTicker = () => {
   );
 };
 
-const Home = ({ handleNavClick, openLeadForm, Logo }) => {
+const Home = ({ handleNavClick, Logo }) => {
   const [expandedService, setExpandedService] = useState(null);
 
   const toggleService = (index) => {
@@ -216,12 +216,10 @@ const Home = ({ handleNavClick, openLeadForm, Logo }) => {
                 onClick={() => handleNavClick('contactpage')}
                 className="group relative px-8 py-4 bg-[#7c7adb] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(124,122,219,0.2)]"
               >
-                <a href="tel:7560807374" className="group relative inline-flex items-center">
-                  <span className="relative z-10 flex items-center gap-2">
-                    BOOK A CALL
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </a>
+                <span className="relative z-10 inline-flex items-center gap-2">
+                  BOOK A CALL
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </button>
               <div className="flex items-center gap-6 px-4">
                 <div className="text-center">
@@ -266,12 +264,10 @@ const Home = ({ handleNavClick, openLeadForm, Logo }) => {
               onClick={() => handleNavClick('contactpage')}
               className="group relative w-full px-8 py-5 bg-[#7c7adb] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all hover:scale-[1.02] active:scale-98 shadow-[0_10px_30px_rgba(124,122,219,0.2)]"
             >
-              <a href="tel:7560807374" className="group relative inline-flex items-center justify-center w-full">
-                <span className="relative z-10 flex items-center gap-3">
-                  BOOK A CALL
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </a>
+              <span className="relative z-10 inline-flex items-center justify-center w-full gap-3">
+                BOOK A CALL
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
             </button>
             
             <div className="flex items-center justify-center gap-8 px-4 py-4 bg-[#1e1e24]/50 rounded-2xl border border-white/5">
@@ -388,7 +384,7 @@ const Home = ({ handleNavClick, openLeadForm, Logo }) => {
                 LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
               </h2>
               <button 
-                onClick={() => openLeadForm?.()}
+                onClick={() => handleNavClick('contactpage')}
                 className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
               >
                 Get In Touch <ArrowRight />

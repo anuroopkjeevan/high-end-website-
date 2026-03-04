@@ -83,6 +83,15 @@ const HomeNav = ({ handleNavClick, Logo }) => {
             </button>
 
             <button
+              onClick={() => handleNavigation("contactpage")}
+              className={`font-bold text-xs uppercase tracking-widest transition-colors ${
+                isActive("/contact") ? "text-[#7c7adb]" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Contact
+            </button>
+
+            <button
               onClick={() => window.location.href = "tel:7560807374"}
               className="px-6 py-2.5 rounded-full border border-[#7c7adb]/40 text-white font-bold text-xs uppercase tracking-widest hover:bg-[#7c7adb] transition-all duration-300 shadow-[0_0_20px_rgba(124,122,219,0.1)]"
             >
@@ -175,14 +184,11 @@ const HomeNav = ({ handleNavClick, Logo }) => {
                 </button>
 
                 <button
-                  onClick={() => handleNavigation("work")}
+                  onClick={() => handleNavigation("contactpage")}
                   className="text-left text-2xl font-black text-white hover:text-[#7c7adb] transition-colors uppercase tracking-tighter"
                 >
-                  Work
+                  Contact
                 </button>
-{/* 
-        
-
                 {/* SOCIALS - UPDATED WITH CORRECT LINKS */}
                 <div className="border-t border-white/10 pt-8 mt-4">
                   <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">

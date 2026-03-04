@@ -37,7 +37,7 @@ const staggerContainer = {
   }
 };
 
-const About = ({ handleNavClick, openLeadForm, Logo }) => {
+const About = ({ handleNavClick, Logo }) => {
   return (
     <div className="min-h-screen bg-[#121214] text-white font-sans selection:bg-[#7c7adb] selection:text-white overflow-x-hidden">
       
@@ -336,7 +336,7 @@ const About = ({ handleNavClick, openLeadForm, Logo }) => {
                 </span>
               </h2>
               <button 
-                onClick={() => openLeadForm?.()}
+                onClick={() => handleNavClick('contactpage')}
                 className="group bg-white text-black px-10 py-5 rounded-[1.5rem] font-bold text-lg 
                          hover:bg-gradient-to-r hover:from-[#7c7adb] hover:to-[#a3a1f7] 
                          hover:text-white transition-all duration-500 flex items-center gap-3 

@@ -18,9 +18,9 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import PageManager from "./pages/admin/page manager";
 import Settings from "./pages/admin/settings";
+import Contact from "./pages/Contact";
 import { cmsApi } from "./services/api";
 import SEOEngine from "./components/SEOEngine";
-import LeadFormModal from "./components/LeadFormModal";
 
 function AnalyticsTracker() {
   const location = useLocation();
@@ -95,7 +95,6 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const [cmsEdits, setCmsEdits] = useState({});
-  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
 
   const isAdminPath = location.pathname.startsWith("/admin");
 
@@ -143,11 +142,8 @@ function AppContent() {
     if (target === "blog") navigate("/blog");
     if (target === "blogpost") navigate("/blog");
     if (target === "work") navigate("/#work");
-    if (target === "contactpage") navigate("/#contact");
+    if (target === "contactpage") navigate("/contact");
   };
-
-  const openLeadForm = () => setIsLeadModalOpen(true);
-  const closeLeadForm = () => setIsLeadModalOpen(false);
 
   return (
     <>
@@ -165,24 +161,25 @@ function AppContent() {
       <Routes>
         <Route
           path="/"
-          element={<PageRenderer pageId="home" interactive={false} pageEdits={cmsEdits.home || {}} pageProps={{ handleNavClick, openLeadForm, Logo }} />}
+          element={<PageRenderer pageId="home" interactive={false} pageEdits={cmsEdits.home || {}} pageProps={{ handleNavClick, Logo }} />}
         />
         <Route
           path="/about"
-          element={<PageRenderer pageId="about" interactive={false} pageEdits={cmsEdits.about || {}} pageProps={{ handleNavClick, openLeadForm, Logo }} />}
+          element={<PageRenderer pageId="about" interactive={false} pageEdits={cmsEdits.about || {}} pageProps={{ handleNavClick, Logo }} />}
         />
         <Route
           path="/services"
-          element={<PageRenderer pageId="services" interactive={false} pageEdits={cmsEdits.services || {}} pageProps={{ handleNavClick, openLeadForm, Logo }} />}
+          element={<PageRenderer pageId="services" interactive={false} pageEdits={cmsEdits.services || {}} pageProps={{ handleNavClick, Logo }} />}
         />
         <Route
           path="/blog"
-          element={<PageRenderer pageId="blog" interactive={false} pageEdits={cmsEdits.blog || {}} pageProps={{ handleNavClick, openLeadForm, Logo }} />}
+          element={<PageRenderer pageId="blog" interactive={false} pageEdits={cmsEdits.blog || {}} pageProps={{ handleNavClick, Logo }} />}
         />
         <Route
           path="/portfolio"
-          element={<PageRenderer pageId="portfolio" interactive={false} pageEdits={cmsEdits.portfolio || {}} pageProps={{ handleNavClick, openLeadForm, Logo }} />}
+          element={<PageRenderer pageId="portfolio" interactive={false} pageEdits={cmsEdits.portfolio || {}} pageProps={{ handleNavClick, Logo }} />}
         />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -190,8 +187,6 @@ function AppContent() {
         <Route path="/admin/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
       </Routes>
-
-      <LeadFormModal isOpen={isLeadModalOpen} onClose={closeLeadForm} />
     </>
   );
 }

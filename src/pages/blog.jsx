@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from "@emailjs/browser";
 import {
   ArrowRight,
   Calendar,
@@ -54,10 +55,12 @@ const staggerContainer = {
   }
 };
 
-const Blog = ({ handleNavClick, openLeadForm, Logo }) => {
+const Blog = ({ handleNavClick, Logo }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [visiblePosts, setVisiblePosts] = useState(6);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState({ loading: false, success: "", error: "" });
 
   // Filter posts based on category and search
   const filteredPosts = blogPosts.filter(post => {
@@ -79,6 +82,48 @@ const Blog = ({ handleNavClick, openLeadForm, Logo }) => {
 
   const loadMore = () => {
     setVisiblePosts(prev => Math.min(prev + 3, filteredPosts.length));
+  };
+
+  const handleSubscribe = async () => {
+    const trimmedEmail = newsletterEmail.trim();
+    if (!trimmedEmail) {
+      setNewsletterStatus({ loading: false, success: "", error: "Please enter your email." });
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(trimmedEmail)) {
+      setNewsletterStatus({ loading: false, success: "", error: "Please enter a valid email." });
+      return;
+    }
+
+    setNewsletterStatus({ loading: true, success: "", error: "" });
+    try {
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_boffxzd";
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_5s4kulr";
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "gMnwuBkg-JdrEmXB7";
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: "Newsletter Subscriber",
+          email: trimmedEmail,
+          phone: "-",
+          business: "-",
+          message: "Newsletter subscription request",
+          page_path: typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "-",
+          to_email: "info@adverrahub.com",
+        },
+        { publicKey }
+      );
+
+      setNewsletterStatus({ loading: false, success: "Subscribed successfully.", error: "" });
+      setNewsletterEmail("");
+    } catch (error) {
+      const detailedError = error?.text || error?.message || "Subscription failed.";
+      setNewsletterStatus({ loading: false, success: "", error: `EmailJS error: ${detailedError}` });
+    }
   };
 
   return (
@@ -235,15 +280,20 @@ const Blog = ({ handleNavClick, openLeadForm, Logo }) => {
               <input
                 type="email"
                 placeholder="Enter your email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 className="flex-1 px-6 py-4 bg-[#1e1e24] border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-[#7c7adb] focus:ring-1 focus:ring-[#7c7adb] transition-all"
               />
               <button
-                onClick={() => handleNavClick('contactpage')}
+                onClick={handleSubscribe}
+                disabled={newsletterStatus.loading}
                 className="group px-8 py-4 bg-gradient-to-r from-[#7c7adb] to-[#a3a1f7] text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 shadow-[0_10px_30px_rgba(124,122,219,0.3)] flex items-center justify-center gap-2"
               >
-                SUBSCRIBE <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                {newsletterStatus.loading ? "SENDING..." : "SUBSCRIBE"} <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
+            {newsletterStatus.success ? <p className="text-xs text-green-400 mt-4">{newsletterStatus.success}</p> : null}
+            {newsletterStatus.error ? <p className="text-xs text-red-400 mt-4">{newsletterStatus.error}</p> : null}
             <p className="text-xs text-gray-600 mt-4">
               No spam. Unsubscribe anytime.
             </p>
@@ -292,7 +342,7 @@ const Blog = ({ handleNavClick, openLeadForm, Logo }) => {
                 LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
               </h2>
               <button 
-                onClick={() => openLeadForm?.()}
+                onClick={() => handleNavClick('contactpage')}
                 className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
               >
                 Get In Touch <ArrowRight />

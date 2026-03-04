@@ -84,7 +84,7 @@ const staggerContainer = {
   }
 };
 
-const Services = ({ handleNavClick, openLeadForm, Logo }) => {
+const Services = ({ handleNavClick, Logo }) => {
   const [activeIndustry, setActiveIndustry] = useState(0);
 
   return (
@@ -731,7 +731,7 @@ const Services = ({ handleNavClick, openLeadForm, Logo }) => {
                 LET'S BUILD <br/><span className="text-[#7c7adb]">TOGETHER.</span>
               </h2>
               <button 
-                onClick={() => openLeadForm?.()}
+                onClick={() => handleNavClick('contactpage')}
                 className="bg-white text-black px-10 py-5 rounded-[1.5rem] font-black text-lg hover:bg-[#7c7adb] hover:text-white transition-all flex items-center gap-2"
               >
                 Get In Touch <ArrowRight />

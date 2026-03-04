@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cmsApi } from "../services/api";
+import emailjs from "@emailjs/browser";
 
 const initialLeadForm = {
   name: "",
@@ -56,19 +56,41 @@ const LeadFormModal = ({ isOpen, onClose, recipientEmail = "info@adverrahub.com"
     setIsSubmitting(true);
 
     try {
-      await cmsApi.submitPublicLead({
-        name: trimmedName,
-        email: trimmedEmail,
-        phone: leadForm.phone.trim(),
-        business: leadForm.business.trim(),
-        message: trimmedMessage,
-        page_path: typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "",
-      });
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_boffxzd";
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_5s4kulr";
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "gMnwuBkg-JdrEmXB7";
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS is not configured. Add VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY.");
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: trimmedName,
+          email: trimmedEmail,
+          phone: leadForm.phone.trim() || "-",
+          business: leadForm.business.trim() || "-",
+          message: trimmedMessage,
+          page_path: typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "-",
+          to_email: recipientEmail,
+        },
+        {
+          publicKey,
+        }
+      );
+
       setSubmitSuccess("Lead submitted successfully.");
       setLeadForm(initialLeadForm);
     } catch (error) {
-      const detail = error?.response?.data?.detail;
-      setSubmitError(detail || "Submission failed. Please try again.");
+      const detailedError =
+        error?.text ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Submission failed. Please try again.";
+      setSubmitError(`EmailJS error: ${detailedError}`);
+      console.error("Lead form EmailJS submit failed:", error);
     } finally {
       setIsSubmitting(false);
     }
